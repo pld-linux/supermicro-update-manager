@@ -35,10 +35,10 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_libdir}/%{name}}
 cp -a prep/BIOS/sum/{ExternalData,sum} $RPM_BUILD_ROOT%{_libdir}/%{name}
 chmod 755 $RPM_BUILD_ROOT%{_libdir}/%{name}/sum
 
-cat << 'EOF' > $RPM_BUILD_ROOT%{_sbindir}/sum
+cat << 'EOF' > $RPM_BUILD_ROOT%{_sbindir}/%{name}
 #!/bin/sh
 cd %{_libdir}/%{name} || exit 1
-exec ./sum $@
+exec %{_libdir}/%{name}/sum $@
 EOF
 
 %clean
@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc prep/BIOS/sum/ReleaseNote.txt
-%attr(755,root,root) %{_sbindir}/sum
+%attr(755,root,root) %{_sbindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/ExternalData
 %attr(755,root,root) %{_libdir}/%{name}/sum
