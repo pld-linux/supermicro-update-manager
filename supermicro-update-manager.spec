@@ -1,12 +1,12 @@
 Summary:	Supermicro Update Manager (for UEFI BIOS)
 Name:		supermicro-update-manager
 # sum version
-Version:	2.0.1
+Version:	2.1.0
 Release:	1
 License:	Unknown
 Group:		Base
-Source0:	ftp://ftp.supermicro.com:/utility/SuperDoctor_5/Linux/SD5_5.6.0_build.894_linux.zip
-# Source0-md5:	6490daed106f45bad45c3c0d1b166ffe
+Source0:	ftp://ftp.supermicro.com:/utility/SuperDoctor_5/Linux/SD5_5.7.0_build.921_linux.zip
+# Source0-md5:	5fc105738e3e142630b10140d0a2d9b4
 URL:		https://www.supermicro.com/solutions/SMS_SUM.cfm
 BuildRequires:	unzip
 ExclusiveArch:	%{x8664}
