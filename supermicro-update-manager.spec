@@ -2,12 +2,11 @@ Summary:	Supermicro Update Manager (for UEFI BIOS)
 Name:		supermicro-update-manager
 # sum version
 Version:	2.3.0
-Release:	1
+Release:	2
 License:	Unknown
 Group:		Base
-# https://www.supermicro.com/SwDownload/SwSelect_Free.aspx?cat=SUM
-Source0:	sum_%{version}_Linux_x86_64_20190808.tar.gz
-# Source0-md5:	ff46c61ac9c418905c7fe1ab397daa05
+Source0:	https://www.supermicro.com/wftp/utility/SuperDoctor_5/Linux/SD5_5.8.0_build.956_linux.zip
+# Source0-md5:	621ca2b6141d54c14a97115b8906e646
 URL:		https://www.supermicro.com/solutions/SMS_SUM.cfm
 BuildRequires:	unzip
 ExclusiveArch:	%{x8664}
@@ -23,13 +22,16 @@ well as event log management are also supported. Moreover, special
 applications are also provided to facilitate system management.
 
 %prep
-%setup -q -n sum_%{version}_Linux_x86_64
+%setup -q -c
+install -d prep; cd prep
+unzip ../*.bin || :
+unzip \$IA_PROJECT_DIR\$/build/SuperDoctor5-linux.zip
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_libdir}/%{name}}
-cp -a {ExternalData,sum} $RPM_BUILD_ROOT%{_libdir}/%{name}
+cp -a prep/BIOS/sum/{ExternalData,sum} $RPM_BUILD_ROOT%{_libdir}/%{name}
 chmod 755 $RPM_BUILD_ROOT%{_libdir}/%{name}/sum
 
 cat << 'EOF' > $RPM_BUILD_ROOT%{_sbindir}/%{name}
@@ -43,7 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ReleaseNote.txt SUM_UserGuide.pdf sumrc.sample
+%doc prep/BIOS/sum/ReleaseNote.txt
 %attr(755,root,root) %{_sbindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/ExternalData
